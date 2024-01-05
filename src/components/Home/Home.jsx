@@ -30,6 +30,17 @@ const Home = () => {
         setFilteredCities(filteredCities.map((city) => city.name));
     };
 
+    const handleChange = (e) => {
+        e.preventDefault();
+        setCity(e.target.value);
+
+        if (city.length >= 2) {
+            filterCitiesByCharacter(e.target.value);
+        } else {
+            setFilteredCities();
+        }
+    }
+
 
     return (
         <div>
@@ -39,9 +50,8 @@ const Home = () => {
                     <input
                         type="text"
                         name="emailId"
-                        onChange={(event) => {
-                            setCity(event.target.value);
-                        }}
+                        value={city}
+                        onChange={handleChange}
                     />
                 </label>
                 <br />
@@ -52,7 +62,12 @@ const Home = () => {
                 >
                     search
                 </button>
-
+                {
+                    filteredCities?.length > 0 &&
+                    filteredCities.map((city, index) => (
+                        <p key={index}>{city}</p>
+                    ))
+                }
             </div>
             <div>
                 {
