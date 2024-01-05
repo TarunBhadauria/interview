@@ -8,9 +8,10 @@ import 'firebase/analytics';
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
 
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useState } from 'react';
 import Login from './components/Login/Login';
+import SignUp from './components/SignUp/SignUp';
+import Home from './components/Home/Home';
+import { Route, Routes } from 'react-router-dom';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -26,13 +27,15 @@ function App() {
 
     const app = initializeApp(firebaseConfig)
 
-    const auth = getAuth(app);
-
-    const [user] = useAuthState(auth);
+    getAuth(app);
 
     return (
         <div className="App">
-            <Login/>
+            <Routes>
+                <Route path='/' element={<Home/>} />
+                <Route path='/signup' element={<SignUp/>} />
+                <Route path='/login' element={<Login/>} />
+            </Routes>
         </div>
     );
 }

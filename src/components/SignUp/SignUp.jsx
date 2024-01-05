@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import style from './SignUp.module.css'
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -8,7 +9,9 @@ const SignUp = () => {
         password: '',
     })
 
-    const [user, setUser] = useState('');
+    const navigate = useNavigate();
+
+    // const [user, setUser] = useState('');
 
     const auth = getAuth();
 
@@ -19,10 +22,13 @@ const SignUp = () => {
         }))
     }
 
-    const handleSubmit = ()=>{
+    const handleSubmit = (e)=>{
+        e.preventDefault();
         createUserWithEmailAndPassword(auth, formData.email, formData.password)
         .then((userCredential)=>{
-            setUser(userCredential.user);
+            // setUser(userCredential.user);
+            console.log('Sign Up Successfully');
+            navigate('/login');
         })
         .catch((error)=>{
             console.log(error);
