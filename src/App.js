@@ -8,10 +8,12 @@ import 'firebase/analytics';
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
 
-import Login from './components/Login/Login';
-import SignUp from './components/SignUp/SignUp';
+
 import Home from './components/Home/Home';
 import { Route, Routes } from 'react-router-dom';
+import Signup from './Pages/Auth/Signup';
+import Login from './Pages/Auth/Login';
+import { Toaster } from 'react-hot-toast';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -25,15 +27,16 @@ const firebaseConfig = {
 
 function App() {
 
-    const app = initializeApp(firebaseConfig)
+    const app = initializeApp(firebaseConfig);
 
     getAuth(app);
 
     return (
         <div className="App">
+            <Toaster/>
             <Routes>
                 <Route path='/' element={<Home/>} />
-                <Route path='/signup' element={<SignUp/>} />
+                <Route path='/signup' element={<Signup/>} />
                 <Route path='/login' element={<Login/>} />
             </Routes>
         </div>
