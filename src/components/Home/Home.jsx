@@ -50,9 +50,9 @@ const Home = () => {
   };
 
   return (
-    <div className="text-white flex flex-col lg:flex-row justify-between items-center">
+    <div className="text-white flex flex-col lg:flex-row justify-between items-start mt-4">
       <div className="mb-4 lg:mb-0">Logo</div>
-      <div className="flex flex-col items-center lg:flex-row lg:items-center">
+      <div className="flex flex-col items-center lg:items-center">
         <SearchBar
           onChange={handleChange}
           city={city}
@@ -60,7 +60,7 @@ const Home = () => {
           onClick={handleOnClick}
         />
 
-        <div className="bg-richblack-5 text-richblack-900 w-full max-h-40 overflow-y-auto lg:w-[25%] mx-auto rounded-md lg:ml-4 mt-4 lg:mt-0">
+        <div className="bg-richblack-5 text-richblack-900 w-full max-h-40 overflow-y-auto  mx-auto rounded-md mt-4 lg:mt-0">
           <ul className="list-none p-0">
             {filteredCities?.length > 0 &&
               filteredCities.map((city, index) => (
