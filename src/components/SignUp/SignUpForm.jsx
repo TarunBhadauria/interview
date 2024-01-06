@@ -1,28 +1,31 @@
+// Importing React and necessary modules/libraries
 import React, { useState } from "react";
-import style from "./SignUp.module.css";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import toast from "react-hot-toast";
 
 const SignUpForm = () => {
+  // State to manage form data (email, password, firstName, lastName, confirmPassword)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    firstName:"",
-    lastName:"",
+    firstName: "",
+    lastName: "",
     confirmPassword: "",
-
   });
+
+  // State to manage whether the password is visible or hidden
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Navigation hook for programmatic navigation
   const navigate = useNavigate();
 
-  // const [user, setUser] = useState('');
-
+  // Firebase authentication object
   const auth = getAuth();
 
+  // Event handler for input changes
   const handleOnChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -30,16 +33,18 @@ const SignUpForm = () => {
     }));
   };
 
+  // Event handler for form submission
   const handleOnSubmit = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
       .then((userCredential) => {
-        // setUser(userCredential.user);
+        // Handle successful sign-up
         console.log("Sign Up Successfully");
         navigate("/login");
-        toast.success("Sign Up Successfull")
+        toast.success("Sign Up Successful");
       })
       .catch((error) => {
+        // Handle sign-up error
         console.log(error);
         toast.error("Something went wrong");
       });
@@ -47,9 +52,8 @@ const SignUpForm = () => {
 
   return (
     <div>
-
-      {/* Form */}
       <form onSubmit={handleOnSubmit} className="flex w-full flex-col gap-y-4">
+        {/* First Name and Last Name input fields */}
         <div className="flex gap-x-4">
           <label>
             <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
@@ -86,6 +90,8 @@ const SignUpForm = () => {
             />
           </label>
         </div>
+
+        {/* Email input field */}
         <label className="w-full">
           <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
             Email Address <sup className="text-pink-200">*</sup>
@@ -103,6 +109,8 @@ const SignUpForm = () => {
             className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"
           />
         </label>
+
+        {/* Password and Confirm Password input fields */}
         <div className="flex gap-x-4">
           <label className="relative">
             <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
@@ -120,6 +128,7 @@ const SignUpForm = () => {
               }}
               className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5"
             />
+            {/* Toggle button to show/hide password */}
             <span
               onClick={() => setShowPassword((prev) => !prev)}
               className="absolute right-3 top-[38px] z-[10] cursor-pointer"
@@ -131,6 +140,7 @@ const SignUpForm = () => {
               )}
             </span>
           </label>
+
           <label className="relative">
             <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
               Confirm Password <sup className="text-pink-200">*</sup>
@@ -147,6 +157,7 @@ const SignUpForm = () => {
               }}
               className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5"
             />
+            {/* Toggle button to show/hide confirm password */}
             <span
               onClick={() => setShowConfirmPassword((prev) => !prev)}
               className="absolute right-3 top-[38px] z-[10] cursor-pointer"
@@ -159,6 +170,8 @@ const SignUpForm = () => {
             </span>
           </label>
         </div>
+
+        {/* Submit button */}
         <button
           type="submit"
           className="mt-6 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900"

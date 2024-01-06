@@ -1,20 +1,19 @@
-import { FcGoogle } from "react-icons/fc";
-// import { useSelector } from "react-redux";
-
-// import frameImg from "../../../assets/Images/frame.png";
 import SignUpForm from "../SignUp/SignUpForm";
 import LoginForm from "../Login/LoginForm";
 
-
 function Template({ title, description1, description2, image, formType }) {
-  const  loading  = false;
+  // Dummy loading state (currently set to false)
+  const loading = false;
 
   return (
-    <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+    <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center"> 
       {loading ? (
+        // Displaying a spinner if loading is true
         <div className="spinner"></div>
       ) : (
+        // Main content when loading is false
         <div className="mx-auto flex w-11/12 max-w-maxContent flex-col-reverse justify-between gap-y-12 py-12 md:flex-row md:gap-y-0 md:gap-x-12">
+          {/* Left side content: Title, descriptions, and the signup/login form */}
           <div className="mx-auto w-11/12 max-w-[450px] md:mx-0">
             <h1 className="text-[1.875rem] font-semibold leading-[2.375rem] text-richblack-5">
               {title}
@@ -25,16 +24,12 @@ function Template({ title, description1, description2, image, formType }) {
                 {description2}
               </span>
             </p>
+            {/* Rendering the SignUpForm or LoginForm based on formType */}
             {formType === "signup" ? <SignUpForm /> : <LoginForm />}
           </div>
+          {/* Right side content: Images */}
           <div className="relative mx-auto w-11/12 max-w-[450px] md:mx-0">
-            <img
-              src=""
-              alt="Pattern"
-              width={558}
-              height={504}
-              loading="lazy"
-            />
+            <img src="" alt="Pattern" width={558} height={504} loading="lazy" />
             <img
               src={image}
               alt="Students"
@@ -51,3 +46,4 @@ function Template({ title, description1, description2, image, formType }) {
 }
 
 export default Template;
+

@@ -1,11 +1,12 @@
+// Importing React and necessary modules/libraries
 import React, { useState } from "react";
-import style from "./Login.module.css";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const LoginForm = () => {
+  // State to manage form data (email and password)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -13,11 +14,13 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  // const [user, setUser] = useState('');
+  // State to manage whether the password is visible or hidden
   const [showPassword, setShowPassword] = useState(false);
 
+  // Firebase authentication object
   const auth = getAuth();
 
+  // Event handler for input changes
   const handleOnChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -25,16 +28,18 @@ const LoginForm = () => {
     }));
   };
 
+  // Event handler for form submission
   const handleOnSubmit = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, formData.email, formData.password)
       .then((userCredential) => {
-        // setUser(userCredential.user);
+        // Handle successful sign-in
         console.log("Sign In Successfully");
         toast.success("Login success");
         navigate("/");
       })
       .catch((error) => {
+        // Handle sign-in error
         console.log(error);
         toast.error("Something went wrong");
       });
@@ -45,6 +50,7 @@ const LoginForm = () => {
       onSubmit={handleOnSubmit}
       className="mt-6 flex w-full flex-col gap-y-4"
     >
+      {/* Email input field */}
       <label className="w-full">
         <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
           Email Address <sup className="text-pink-200">*</sup>
@@ -62,6 +68,8 @@ const LoginForm = () => {
           className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"
         />
       </label>
+
+      {/* Password input field */}
       <label className="relative">
         <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
           Password <sup className="text-pink-200">*</sup>
@@ -78,6 +86,8 @@ const LoginForm = () => {
           }}
           className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-12 text-richblack-5"
         />
+
+        {/* Toggle button to show/hide password */}
         <span
           onClick={() => setShowPassword((prev) => !prev)}
           className="absolute right-3 top-[38px] z-[10] cursor-pointer"
@@ -88,22 +98,13 @@ const LoginForm = () => {
             <AiOutlineEye fontSize={24} fill="#AFB2BF" />
           )}
         </span>
+
         <Link to="/signup">
-          <p className="mt-1 ml-auto max-w-max text-xs text-blue-100">
-            Signup
-          </p>
+          <p className="mt-1 ml-auto max-w-max text-xs text-blue-100">Signup</p>
         </Link>
-        <div className="flex justify-end my-2">
-          {/* <GoogleLogin
-              clientId="800481249813-mgqhop38m78j2qq6ftedkj4mepd89t9l.apps.googleusercontent.com"
-              buttonText="Login"
-              onSuccess={handleOnSuccess}
-              onFailure={handleOnFailure}
-              cookiePolicy={'single_host_origin'}
-              isSignedIn={true}
-            /> */}
-        </div>
       </label>
+
+      {/* Submit button */}
       <button
         type="submit"
         className="mt-6 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900"
